@@ -31,10 +31,10 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'address' => 'required|max:255',
+            'name' => 'required|string|max:255',
+            'address' => 'required|string',
             'phone_number' => 'required|numeric',
-            'id_card' => 'required|numeric',
+            'id_card' => 'required|integer|digits:16',
         ]);
 
         $customer = Customer::create($validatedData);        
@@ -66,10 +66,10 @@ class CustomerController extends Controller
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'address' => 'required|max:255',
+            'name' => 'required|string|max:255',
+            'address' => 'required|string',
             'phone_number' => 'required|numeric',
-            'id_card' => 'required|numeric',
+            'id_card' => 'required|integer|digits:16',
         ]);
 
         $customer = Customer::findOrFail($id);

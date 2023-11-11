@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('year');
             $table->unsignedSmallInteger('passenger_amount');
             $table->string('manufacturer');
-            $table->unsignedInteger('price');
+            $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('vehicleable_id');
             $table->string('vehicleable_type');
             $table->timestamps();

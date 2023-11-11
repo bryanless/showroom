@@ -35,11 +35,11 @@ class VehicleController extends Controller
     {
         $validatedData = $request->validate([
             'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'model' => 'required|max:255',
-            'year' => 'required|numeric|digits:4',
-            'passenger_amount' => 'required|integer|min:0|max:65535',
-            'manufacturer' => 'required|max:255',
-            'price' => 'required|numeric',
+            'model' => 'required|string|max:255',
+            'year' => 'required|integer|unsigned|digits:4',
+            'passenger_amount' => 'required|integer|unsigned|max:65535',
+            'manufacturer' => 'required|string|max:255',
+            'price' => 'required|integer|unsigned',
         ]);
 
         $selectedVehicleType = $request->input('vehicle_type');
@@ -55,8 +55,8 @@ class VehicleController extends Controller
         switch ($selectedVehicleType) {
             case 'car':
                 $validatedCarData = $request->validate([
-                    'fuel_type' => 'required|max:255',
-                    'car_trunk_size' => 'required|numeric',
+                    'fuel_type' => 'required|string|max:255',
+                    'car_trunk_size' => 'required|integer|unsigned',
                 ]);
                 $validatedCarData['trunk_size'] = $validatedCarData['car_trunk_size'];
                 $car = Car::create($validatedCarData);
@@ -69,8 +69,8 @@ class VehicleController extends Controller
 
             case 'motorbike':
                 $validatedMotorbikeData = $request->validate([
-                    'motorbike_trunk_size' => 'required|numeric',
-                    'fuel_capacity' => 'required|numeric',
+                    'motorbike_trunk_size' => 'required|integer|unsigned',
+                    'fuel_capacity' => 'required|integer|unsigned',
                 ]);
                 $validatedMotorbikeData['trunk_size'] = $validatedMotorbikeData['motorbike_trunk_size'];
                 $motorbike = Motorbike::create($validatedMotorbikeData);
@@ -81,8 +81,8 @@ class VehicleController extends Controller
 
             case 'truck':
                 $validatedTruckData = $request->validate([
-                    'tire_amount' => 'required|numeric',
-                    'cargo_size' => 'required|numeric',
+                    'tire_amount' => 'required|integer|unsigned|max:65535',
+                    'cargo_size' => 'required|integer|unsigned',
                 ]);
                 $truck = Truck::create($validatedTruckData);
                 $validatedData['vehicleable_id'] = $truck->id;
@@ -124,11 +124,11 @@ class VehicleController extends Controller
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
-            'model' => 'required|max:255',
-            'year' => 'required|numeric|digits:4',
-            'passenger_amount' => 'required|integer|min:0|max:65535',
-            'manufacturer' => 'required|max:255',
-            'price' => 'required|numeric',
+            'model' => 'required|string|max:255',
+            'year' => 'required|integer|unsigned|digits:4',
+            'passenger_amount' => 'required|integer|unsigned|max:65535',
+            'manufacturer' => 'required|string|max:255',
+            'price' => 'required|integer|unsigned',
         ]);
 
 
@@ -148,8 +148,8 @@ class VehicleController extends Controller
         switch ($vehicle->vehicleable_type) {
             case 'App\\Models\\Car':
                 $validatedCarData = $request->validate([
-                    'fuel_type' => 'required|max:255',
-                    'car_trunk_size' => 'required|numeric',
+                    'fuel_type' => 'required|string|max:255',
+                    'car_trunk_size' => 'required|integer|unsigned',
                 ]);
                 $validatedCarData['trunk_size'] = $validatedCarData['car_trunk_size'];
                 $car = Car::findOrFail($vehicle->vehicleable->id);
@@ -158,8 +158,8 @@ class VehicleController extends Controller
 
             case 'App\\Models\\Motorbike':
                 $validatedMotorbikeData = $request->validate([
-                    'motorbike_trunk_size' => 'required|numeric',
-                    'fuel_capacity' => 'required|numeric',
+                    'motorbike_trunk_size' => 'required|integer|unsigned',
+                    'fuel_capacity' => 'required|integer|unsigned',
                 ]);
                 $validatedMotorbikeData['trunk_size'] = $validatedMotorbikeData['motorbike_trunk_size'];
                 $motorbike = Motorbike::findOrFail($vehicle->vehicleable->id);
@@ -168,8 +168,8 @@ class VehicleController extends Controller
 
             case 'App\\Models\\Truck':
                 $validatedTruckData = $request->validate([
-                    'tire_amount' => 'required|numeric',
-                    'cargo_size' => 'required|numeric',
+                    'tire_amount' => 'required|integer|unsigned|max:65535',
+                    'cargo_size' => 'required|integer|unsigned',
                 ]);
                 $truck = Truck::create($validatedTruckData);
                 $truck = Truck::findOrFail($vehicle->vehicleable->id);
@@ -178,6 +178,7 @@ class VehicleController extends Controller
 
             default:
                 // Handle default case or show an error
+                return redirect()->back()->withInput()->with('error', 'Data tidak lengkap.');
                 break;
         }
 
