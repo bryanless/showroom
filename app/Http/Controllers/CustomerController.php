@@ -34,7 +34,7 @@ class CustomerController extends Controller
             'name' => 'required|string|max:255',
             'address' => 'required|string',
             'phone_number' => 'required|numeric',
-            'id_card' => 'required|integer|digits:16',
+            'id_card' => 'required|numeric|digits:16',
         ]);
 
         $customer = Customer::create($validatedData);        

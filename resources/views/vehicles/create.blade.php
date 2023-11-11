@@ -14,13 +14,23 @@
                 <img src="{{ asset($vehicle->image_path) }}" alt="Your Image" class="w-64">
             @endif
 
-            <div class="flex flex-col">
-                <label for="imageFile">Choose an image file:</label>
-                <input type="file" id="imageFile" name="image_path" accept="image/*" required>
-                @error('image_path')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
-            </div>
+            @if (isset($vehicle))
+                <div class="flex flex-col">
+                    <label for="imageFile">Choose an image file:</label>
+                    <input type="file" id="imageFile" name="image_path" accept="image/*">
+                    @error('image_path')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+            @else
+                <div class="flex flex-col">
+                    <label for="imageFile">Choose an image file:</label>
+                    <input type="file" id="imageFile" name="image_path" accept="image/*" required>
+                    @error('image_path')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+            @endif
 
             <div class="flex flex-col">
                 <label for="model">Model</label>
@@ -72,14 +82,11 @@
                 <div class="flex flex-col">
                     <label for="vehicle_type">Tipe kendaraan</label>
                     <select id="vehicle-type" name="vehicle_type" disabled class="select w-full max-w-xs">
-                        <option selected>
+                        <option selected
+                            value="{{ $vehicle->vehicleable_type === 'App\Models\Car' ? 'car' : ($vehicle->vehicleable_type === 'App\Models\Motorbike' ? 'motorbike' : ($vehicle->vehicleable_type === 'App\Models\Truck' ? 'truck' : 'Undefined')) }}">
                             {{ $vehicle->vehicleable_type === 'App\Models\Car' ? 'Mobil' : ($vehicle->vehicleable_type === 'App\Models\Motorbike' ? 'Motor' : ($vehicle->vehicleable_type === 'App\Models\Truck' ? 'Truk' : 'Undefined')) }}
                         </option>
-
                     </select>
-                    @error('vehicle_type')
-                        <p class="text-danger">{{ $message }}</p>
-                    @enderror
                 </div>
 
                 <!-- Input fields to show/hide based on the selected vehicle type -->
@@ -89,11 +96,17 @@
                             <label for="fuel_type">Tipe bahan bakar</label>
                             <input type="text" name="fuel_type" id="fuel-type"
                                 value="{{ $vehicle->vehicleable->fuel_type }}" class="input input-bordered">
+                            @error('fuel_type')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="flex flex-col">
                             <label for="car_trunk_size">Luas bagasi</label>
                             <input type="number" name="car_trunk_size" id="trunk-size"
                                 value="{{ $vehicle->vehicleable->trunk_size }}" class="input input-bordered">
+                            @error('car_trunk_size')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 @elseif ($vehicle->vehicleable_type === 'App\Models\Motorbike')
@@ -102,11 +115,17 @@
                             <label for="motorbike_trunk_size">Ukuran bagasi</label>
                             <input type="number" name="motorbike_trunk_size" id="motorbike_trunk_size"
                                 value="{{ $vehicle->vehicleable->trunk_size }}" class="input input-bordered">
+                            @error('motorbike_trunk_size')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="flex flex-col">
                             <label for="fuel_capacity">Kapasitas bahan bakar</label>
                             <input type="number" name="fuel_capacity" id="fuel_capacity"
                                 value="{{ $vehicle->vehicleable->fuel_capacity }}" class="input input-bordered">
+                            @error('fuel_capacity')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 @elseif ($vehicle->vehicleable_type === 'App\Models\Truck')
@@ -115,11 +134,17 @@
                             <label for="tire_amount">Jumlah ban</label>
                             <input type="number" name="tire_amount" id="tire_amount"
                                 value="{{ $vehicle->vehicleable->tire_amount }}" class="input input-bordered">
+                            @error('tire_amount')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="flex flex-col">
                             <label for="cargo_size">Ukuran kargo</label>
                             <input type="number" name="cargo_size" id="cargo_size"
                                 value="{{ $vehicle->vehicleable->cargo_size }}" class="input input-bordered">
+                            @error('cargo_size')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 @endif
@@ -143,12 +168,17 @@
                 <div id="car-fields" class="hidden">
                     <div class="flex flex-col">
                         <label for="fuel_type">Tipe bahan bakar</label>
-                        <input type="text" name="fuel_type" id="fuel_type" class="input input-bordered">
+                        <input type="text" name="fuel_type" id="fuel_type" value="{{ old('fuel_type') }}"
+                            class="input input-bordered">
+                        @error('fuel_type')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="flex flex-col">
                         <label for="car_trunk_size">Luas bagasi</label>
-                        <input type="number" name="car_trunk_size" id="car_trunk_size" class="input input-bordered">
-                        @error('trunk_size')
+                        <input type="number" name="car_trunk_size" id="car_trunk_size"
+                            value="{{ old('car_trunk_size') }}" class="input input-bordered">
+                        @error('car_trunk_size')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
@@ -158,14 +188,15 @@
                     <div class="flex flex-col">
                         <label for="motorbike_trunk_size">Ukuran bagasi</label>
                         <input type="number" name="motorbike_trunk_size" id="motorbike_trunk_size"
-                            class="input input-bordered">
+                            value="{{ old('motorbike_trunk_size') }}" class="input input-bordered">
                         @error('motorbike_trunk_size')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="flex flex-col">
                         <label for="fuel_capacity">Kapasitas bahan bakar</label>
-                        <input type="number" name="fuel_capacity" id="fuel_capacity" class="input input-bordered">
+                        <input type="number" name="fuel_capacity" id="fuel_capacity"
+                            value="{{ old('fuel_capacity') }}" class="input input-bordered">
                         @error('fuel_capacity')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -175,14 +206,16 @@
                 <div id="truck-fields" class="hidden">
                     <div class="flex flex-col">
                         <label for="tire_amount">Jumlah ban</label>
-                        <input type="number" name="tire_amount" id="tire_amount" class="input input-bordered">
-                        @error('tier_amount')
+                        <input type="number" name="tire_amount" id="tire_amount" value="{{ old('tire_amount') }}"
+                            class="input input-bordered">
+                        @error('tire_amount')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="flex flex-col">
                         <label for="cargo_size">Ukuran kargo</label>
-                        <input type="number" name="cargo_size" id="cargo_size" class="input input-bordered">
+                        <input type="number" name="cargo_size" id="cargo_size" value="{{ old('cargo_size') }}"
+                            class="input input-bordered">
                         @error('cargo_size')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -201,18 +234,22 @@
             console.log(selectedVehicle);
 
             // Hide all input fields
-            document.getElementById('car-fields').classList.add('hidden');
-            document.getElementById('motorbike-fields').classList.add('hidden');
-            document.getElementById('truck-fields').classList.add('hidden');
+            document.getElementById('car-fields')?.classList.add('hidden');
+            document.getElementById('motorbike-fields')?.classList.add('hidden');
+            document.getElementById('truck-fields')?.classList.add('hidden');
 
             // Show input fields based on the selected vehicle type
             if (selectedVehicle === 'car') {
-                document.getElementById('car-fields').classList.remove('hidden');
+                document.getElementById('car-fields')?.classList.remove('hidden');
             } else if (selectedVehicle === 'motorbike') {
-                document.getElementById('motorbike-fields').classList.remove('hidden');
+                document.getElementById('motorbike-fields')?.classList.remove('hidden');
             } else if (selectedVehicle === 'truck') {
-                document.getElementById('truck-fields').classList.remove('hidden');
+                document.getElementById('truck-fields')?.classList.remove('hidden');
             }
         }
+
+        @if (old('vehicle_type') != null ? 'true' : 'false')
+            showHideInputs()
+        @endif
     </script>
 @endsection

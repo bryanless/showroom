@@ -46,9 +46,11 @@
                 </div>
             @else
                 <select id="customer" name="customer_id" required class="select w-full max-w-xs">
-                    <option value="" disabled selected>Pilih customer</option>
+                    <option value="" disabled {{ old('customer_id') == null ? 'selected' : '' }}>Pilih customer
+                    </option>
                     @foreach ($customers as $customer)
-                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                        <option value="{{ $customer->id }}" {{ old('customer_id') == $customer->id ? 'selected' : '' }}>
+                            {{ $customer->name }}</option>
                     @endforeach
                     @error('customer_id')
                         <p class="text-danger">{{ $message }}</p>
@@ -56,9 +58,9 @@
                 </select>
 
                 <select id="vehicle" name="vehicle" required class="select w-full max-w-xs" onchange="updatePrice()">
-                    <option value="" disabled selected>Pilih kendaraan</option>
+                    <option value="" disabled {{ old('vehicle') == null ? 'selected' : '' }}>Pilih kendaraan</option>
                     @foreach ($vehicles as $vehicle)
-                        <option value="{{ $vehicle }}">{{ $vehicle->model }}</option>
+                        <option value="{{ $vehicle }}" {{ old('vehicle') == $vehicle ? 'selected' : '' }}>{{ $vehicle->model }}</option>
                     @endforeach
                     @error('vehicle')
                         <p class="text-danger">{{ $message }}</p>

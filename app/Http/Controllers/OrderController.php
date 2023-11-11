@@ -37,9 +37,9 @@ class OrderController extends Controller
     {
 
         $validatedData = $request->validate([
-            'customer_id' => 'required|integer|unsigned',
+            'customer_id' => 'required|integer|min:0',
             'vehicle' => 'required',
-            'quantity' => 'required|integer|unsigned',
+            'quantity' => 'required|integer|min:1',
         ]);
         $vehicle = json_decode($request->vehicle);
         $validatedData['vehicle_id'] = $vehicle->id;
@@ -76,7 +76,7 @@ class OrderController extends Controller
     {
         $validatedData = $request->validate([
             'vehicle' => 'required',
-            'quantity' => 'required|integer|unsigned',
+            'quantity' => 'required|integer|min:0',
         ]);
         $vehicle = json_decode($request->vehicle);
 
