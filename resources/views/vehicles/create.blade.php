@@ -101,7 +101,7 @@
                             @enderror
                         </div>
                         <div class="flex flex-col">
-                            <label for="car_trunk_size">Luas bagasi</label>
+                            <label for="car_trunk_size">Luas bagasi dalam m²</label>
                             <input type="number" name="car_trunk_size" id="trunk-size"
                                 value="{{ $vehicle->vehicleable->trunk_size }}" class="input input-bordered">
                             @error('car_trunk_size')
@@ -112,7 +112,7 @@
                 @elseif ($vehicle->vehicleable_type === 'App\Models\Motorbike')
                     <div id="motorbike-fields">
                         <div class="flex flex-col">
-                            <label for="motorbike_trunk_size">Ukuran bagasi</label>
+                            <label for="motorbike_trunk_size">Ukuran bagasi dalam m²</label>
                             <input type="number" name="motorbike_trunk_size" id="motorbike_trunk_size"
                                 value="{{ $vehicle->vehicleable->trunk_size }}" class="input input-bordered">
                             @error('motorbike_trunk_size')
@@ -120,7 +120,7 @@
                             @enderror
                         </div>
                         <div class="flex flex-col">
-                            <label for="fuel_capacity">Kapasitas bahan bakar</label>
+                            <label for="fuel_capacity">Kapasitas bahan bakar dalam Liter</label>
                             <input type="number" name="fuel_capacity" id="fuel_capacity"
                                 value="{{ $vehicle->vehicleable->fuel_capacity }}" class="input input-bordered">
                             @error('fuel_capacity')
@@ -139,7 +139,7 @@
                             @enderror
                         </div>
                         <div class="flex flex-col">
-                            <label for="cargo_size">Ukuran kargo</label>
+                            <label for="cargo_size">Ukuran kargo dalam m²</label>
                             <input type="number" name="cargo_size" id="cargo_size"
                                 value="{{ $vehicle->vehicleable->cargo_size }}" class="input input-bordered">
                             @error('cargo_size')
@@ -175,7 +175,7 @@
                         @enderror
                     </div>
                     <div class="flex flex-col">
-                        <label for="car_trunk_size">Luas bagasi</label>
+                        <label for="car_trunk_size">Luas bagasi dalam m²</label>
                         <input type="number" name="car_trunk_size" id="car_trunk_size"
                             value="{{ old('car_trunk_size') }}" class="input input-bordered">
                         @error('car_trunk_size')
@@ -186,7 +186,7 @@
 
                 <div id="motorbike-fields" class="hidden">
                     <div class="flex flex-col">
-                        <label for="motorbike_trunk_size">Ukuran bagasi</label>
+                        <label for="motorbike_trunk_size">Ukuran bagasi dalam m²</label>
                         <input type="number" name="motorbike_trunk_size" id="motorbike_trunk_size"
                             value="{{ old('motorbike_trunk_size') }}" class="input input-bordered">
                         @error('motorbike_trunk_size')
@@ -194,7 +194,7 @@
                         @enderror
                     </div>
                     <div class="flex flex-col">
-                        <label for="fuel_capacity">Kapasitas bahan bakar</label>
+                        <label for="fuel_capacity">Kapasitas bahan bakar dalam Liter</label>
                         <input type="number" name="fuel_capacity" id="fuel_capacity"
                             value="{{ old('fuel_capacity') }}" class="input input-bordered">
                         @error('fuel_capacity')
@@ -213,7 +213,7 @@
                         @enderror
                     </div>
                     <div class="flex flex-col">
-                        <label for="cargo_size">Ukuran kargo</label>
+                        <label for="cargo_size">Ukuran kargo dalam m²</label>
                         <input type="number" name="cargo_size" id="cargo_size" value="{{ old('cargo_size') }}"
                             class="input input-bordered">
                         @error('cargo_size')

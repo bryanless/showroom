@@ -32,7 +32,7 @@
                             <td>{{ $vehicle->year }}</td>
                             <td>{{ $vehicle->passenger_amount }}</td>
                             <td>{{ $vehicle->manufacturer }}</td>
-                            <td>{{ $vehicle->price }}</td>
+                            <td>Rp{{ $vehicle->price }}</td>
                             <td>{{ $vehicle->vehicleable_type === 'App\Models\Car' ? 'Mobil' : ($vehicle->vehicleable_type === 'App\Models\Motorbike' ? 'Motor' : ($vehicle->vehicleable_type === 'App\Models\Truck' ? 'Truk' : 'Undefined')) }}
                             </td>
                             <td class="flex flex-row">

@@ -16,6 +16,9 @@ class Car extends Model
         'trunk_size',
     ];
 
+    /**
+     * Get the vehicle record associated with the car.
+     */
     public function vehicle()
     {
         return $this->morphOne(Vehicle::class, 'vehicleable');

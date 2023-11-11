@@ -20,6 +20,9 @@ class Vehicle extends Model
         'vehicleable_type',
     ];
 
+    /**
+     * Get the owning vehicleable model.
+     */
     public function vehicleable()
     {
         return $this->morphTo();

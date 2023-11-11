@@ -24,7 +24,7 @@
                             <td>{{ $order->customer->name }}</td>
                             <td>{{ $order->vehicle->model }}</td>
                             <td>{{ $order->quantity }}</td>
-                            <td>{{ $order->quantity * $order->vehicle->price }}</td>
+                            <td>Rp{{ $order->quantity * $order->vehicle->price }}</td>
                             <td class="flex flex-row">
                                 <a href="{{ route('orders.edit', $order->id) }}" class="btn">Edit</a>
                                 <form action="{{ route('orders.destroy', $order->id) }}" method="POST">

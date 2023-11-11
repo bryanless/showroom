@@ -15,12 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('image_path');
             $table->string('model');
-            $table->unsignedSmallInteger('year');
+            $table->year('year');
             $table->unsignedSmallInteger('passenger_amount');
             $table->string('manufacturer');
             $table->unsignedBigInteger('price');
-            $table->unsignedBigInteger('vehicleable_id');
-            $table->string('vehicleable_type');
+            $table->morphs('vehicleable');
             $table->timestamps();
         });
     }

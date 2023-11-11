@@ -7,7 +7,9 @@
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
 </head>
-<body>
+<body class="p-8">
+    @php setlocale(LC_MONETARY, 'id_ID'); @endphp
+
     @yield('content')
 </body>
 </html>

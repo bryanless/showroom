@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use App\Models\Vehicle;
 
 class Motorbike extends Model
 {
@@ -15,8 +16,11 @@ class Motorbike extends Model
         'fuel_capacity',
     ];
 
+    /**
+     * Get the vehicle record associated with the motorbike.
+     */
     public function vehicle(): MorphOne
     {
-        return $this->morphOne(Vechicle::class, 'vehicleable');
+        return $this->morphOne(Vehicle::class, 'vehicleable');
     }
 }

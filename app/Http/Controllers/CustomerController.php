@@ -8,7 +8,7 @@ use App\Models\Customer;
 class CustomerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all customers.
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new customer.
      */
     public function create()
     {
@@ -26,7 +26,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created customer in storage.
      */
     public function store(Request $request)
     {
@@ -43,15 +43,16 @@ class CustomerController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified customer.
+     * Currently not implemented as all information can be seen in the index view.
      */
     public function show(string $id)
     {
-        //
+        abort(501, 'This feature is not implemented yet.');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified customer.
      */
     public function edit(string $id)
     {   
@@ -61,7 +62,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified customer in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -79,7 +80,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified customer from storage.
      */
     public function destroy(string $id)
     {

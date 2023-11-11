@@ -10,7 +10,7 @@ use App\Models\Vehicle;
 class OrderController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all orders.
      */
     public function index()
     {
@@ -20,7 +20,8 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new order.
+     * Creating a new order requires the user to select a customer and a vehicle.
      */
     public function create()
     {
@@ -31,7 +32,9 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created customer in storage.
+     * The vehicle request parameter is a JSON object containing the vehicle's id.
+     * This is intended to support automatic total price calculation in the view.
      */
     public function store(Request $request)
     {
@@ -50,27 +53,30 @@ class OrderController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified order.
+     * Currently not implemented as all information can be seen in the index view.
      */
     public function show(string $id)
     {
-        //
+        abort(501, 'This feature is not implemented yet.');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified order.
+     * Editing an order doesn't allow the user to change the customer.
      */
     public function edit(string $id)
     {
         $order = Order::findOrFail($id);
-        $customers = Customer::all();
         $vehicles = Vehicle::all();
 
-        return view('orders.create', ['order' => $order, 'customers' => $customers, 'vehicles' => $vehicles]);
+        return view('orders.create', ['order' => $order, 'vehicles' => $vehicles]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified order in storage.
+     * The vehicle request parameter is a JSON object containing the vehicle's id.
+     * This is intended to support automatic total price calculation in the view.
      */
     public function update(Request $request, string $id)
     {
@@ -90,7 +96,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified order from storage.
      */
     public function destroy(string $id)
     {
