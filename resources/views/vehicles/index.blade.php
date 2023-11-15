@@ -11,6 +11,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Gambar</th>
                         <th>Model</th>
                         <th>Tahun</th>
                         <th>Jumlah penumpang</th>
